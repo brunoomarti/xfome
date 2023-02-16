@@ -1,5 +1,10 @@
 package intergraf;
 
+import java.util.List;
+import javax.swing.JCheckBox;
+import javax.swing.JSpinner;
+import javax.swing.table.DefaultTableModel;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -67,7 +72,7 @@ public class DlgCadPedido extends javax.swing.JDialog {
 
         lblLanche.setText("Lanche");
 
-        txtNome.setEnabled(false);
+        cmbLanche.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hamburguer", "X-Egg", "X-Bacon", "Xtudo" }));
 
         btnPesqCli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intergraf/imagens/search.png"))); // NOI18N
 
@@ -83,6 +88,11 @@ public class DlgCadPedido extends javax.swing.JDialog {
         jPanel3.setLayout(new java.awt.GridLayout(4, 2));
 
         chkBife.setText("Bife");
+        chkBife.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkBifeActionPerformed(evt);
+            }
+        });
         jPanel3.add(chkBife);
 
         spnBife.setModel(new javax.swing.SpinnerNumberModel(0, 0, 5, 1));
@@ -90,6 +100,11 @@ public class DlgCadPedido extends javax.swing.JDialog {
         jPanel3.add(spnBife);
 
         chkQueijo.setText("Queijo");
+        chkQueijo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkQueijoActionPerformed(evt);
+            }
+        });
         jPanel3.add(chkQueijo);
 
         spnQueijo.setModel(new javax.swing.SpinnerNumberModel(0, 0, 5, 1));
@@ -97,6 +112,11 @@ public class DlgCadPedido extends javax.swing.JDialog {
         jPanel3.add(spnQueijo);
 
         chkPresunto.setText("Presunto");
+        chkPresunto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkPresuntoActionPerformed(evt);
+            }
+        });
         jPanel3.add(chkPresunto);
 
         spnPresunto.setModel(new javax.swing.SpinnerNumberModel(0, 0, 5, 1));
@@ -104,6 +124,11 @@ public class DlgCadPedido extends javax.swing.JDialog {
         jPanel3.add(spnPresunto);
 
         chkOvo.setText("Ovo");
+        chkOvo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkOvoActionPerformed(evt);
+            }
+        });
         jPanel3.add(chkOvo);
 
         spnOvo.setModel(new javax.swing.SpinnerNumberModel(0, 0, 5, 1));
@@ -134,8 +159,13 @@ public class DlgCadPedido extends javax.swing.JDialog {
 
         btnAddLanche.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intergraf/imagens/add.png"))); // NOI18N
         btnAddLanche.setText(" Lanche");
+        btnAddLanche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddLancheActionPerformed(evt);
+            }
+        });
 
-        spnQtde.setModel(new javax.swing.SpinnerNumberModel(1, null, 10, 1));
+        spnQtde.setModel(new javax.swing.SpinnerNumberModel(1, 0, 10, 1));
 
         jLabel2.setText("Qtde");
 
@@ -194,7 +224,7 @@ public class DlgCadPedido extends javax.swing.JDialog {
                             .addComponent(cmbLanche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -225,11 +255,11 @@ public class DlgCadPedido extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Lanche", "Qtde", "Bife", "Queijo", "Presunto", "Ovo", "Ingredientes"
+                "Nome", "Lanche", "Qtde", "Bife", "Queijo", "Presunto", "Ovo", "Ingredientes", "Entregar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                true, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -272,7 +302,75 @@ public class DlgCadPedido extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-          
+    private void chkBifeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkBifeActionPerformed
+        habilitarSpinner(chkBife, spnBife);
+    }//GEN-LAST:event_chkBifeActionPerformed
+
+    private void chkQueijoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkQueijoActionPerformed
+        habilitarSpinner(chkQueijo, spnQueijo);
+    }//GEN-LAST:event_chkQueijoActionPerformed
+
+    private void chkPresuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkPresuntoActionPerformed
+        habilitarSpinner(chkPresunto, spnPresunto);
+    }//GEN-LAST:event_chkPresuntoActionPerformed
+
+    private void chkOvoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkOvoActionPerformed
+        habilitarSpinner(chkOvo, spnOvo);
+    }//GEN-LAST:event_chkOvoActionPerformed
+
+    private void btnAddLancheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddLancheActionPerformed
+        // PEGAR OS CAMPOS
+        
+        String nome = txtNome.getText();
+        String lanche = cmbLanche.getSelectedItem().toString();
+        
+        List lista = lstIngredientes.getSelectedValuesList();
+        int bife =  Integer.parseInt(  spnBife.getValue().toString() );
+        int queijo =  Integer.parseInt(  spnQueijo.getValue().toString() );
+        int presunto =  Integer.parseInt(  spnPresunto.getValue().toString() );
+        int ovo =  Integer.parseInt(  spnOvo.getValue().toString() );
+        int qtde =  Integer.parseInt(  spnQtde.getValue().toString() );
+        
+        char entrega = (char) grpEntrega.getSelection().getMnemonic();
+        
+        adicionarTabela(nome, lanche, lista, bife, queijo, presunto, ovo, qtde, entrega);
+        
+        
+    }//GEN-LAST:event_btnAddLancheActionPerformed
+
+    
+    private void habilitarSpinner(JCheckBox chk, JSpinner spn ) {
+        if ( chk.isSelected()  ) {
+            spn.setEnabled(true);
+        }else {
+            spn.setEnabled(false);        
+            spn.setValue(0);
+        }
+    }
+    
+    
+    private void adicionarTabela(String nome, String lanche, List lista, int bife, 
+            int queijo, int presunto, int ovo, int qtde, char entrega){
+        
+        // ADICIONAR LINHA NA TABELA        
+        ( (DefaultTableModel) tblPedidos.getModel() ).addRow( new Object[9] );
+        
+        int linha = tblPedidos.getRowCount() - 1;
+        int col = 0;
+        tblPedidos.setValueAt(nome, linha , col++);
+        tblPedidos.setValueAt(lanche, linha , col++);
+        tblPedidos.setValueAt(qtde, linha , col++);
+        tblPedidos.setValueAt(bife, linha , col++);
+        tblPedidos.setValueAt(queijo, linha , col++);
+        tblPedidos.setValueAt(presunto, linha , col++);
+        tblPedidos.setValueAt(ovo, linha , col++);
+        tblPedidos.setValueAt(lista, linha , col++);
+        tblPedidos.setValueAt(entrega, linha , col++);
+        
+                
+    }
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddLanche;

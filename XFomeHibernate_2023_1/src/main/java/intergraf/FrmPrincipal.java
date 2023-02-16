@@ -33,7 +33,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnuCadastro = new javax.swing.JMenu();
         mnuCliente = new javax.swing.JMenuItem();
         mnuLanche = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        mnuCadPedido = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem4 = new javax.swing.JMenuItem();
         mnuConsultas = new javax.swing.JMenu();
@@ -61,6 +61,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnuCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intergraf/imagens/add.png"))); // NOI18N
         mnuCliente.setMnemonic('C');
         mnuCliente.setText("Cliente");
+        mnuCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuClienteActionPerformed(evt);
+            }
+        });
         mnuCadastro.add(mnuCliente);
 
         mnuLanche.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -68,9 +73,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnuLanche.setText("Lanche");
         mnuCadastro.add(mnuLanche);
 
-        jMenuItem3.setMnemonic('P');
-        jMenuItem3.setText("Pedido");
-        mnuCadastro.add(jMenuItem3);
+        mnuCadPedido.setMnemonic('P');
+        mnuCadPedido.setText("Pedido");
+        mnuCadPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCadPedidoActionPerformed(evt);
+            }
+        });
+        mnuCadastro.add(mnuCadPedido);
         mnuCadastro.add(jSeparator1);
 
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intergraf/imagens/remove.png"))); // NOI18N
@@ -163,6 +173,22 @@ public class FrmPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void mnuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClienteActionPerformed
+        // INSTANCIAÇÃO
+        DlgCadCliente objCadCliente = new DlgCadCliente(this,false);
+        
+        // ABRIR a janela
+        objCadCliente.setVisible(true);
+        
+        
+    }//GEN-LAST:event_mnuClienteActionPerformed
+
+    private void mnuCadPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCadPedidoActionPerformed
+        DlgCadPedido objCadPedido = new DlgCadPedido(this,false);
+        objCadPedido.setVisible(true);
+        
+    }//GEN-LAST:event_mnuCadPedidoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -210,7 +236,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
@@ -218,6 +243,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JMenuItem mnuCadPedido;
     private javax.swing.JMenu mnuCadastro;
     private javax.swing.JMenuItem mnuCliente;
     private javax.swing.JMenu mnuConsultas;

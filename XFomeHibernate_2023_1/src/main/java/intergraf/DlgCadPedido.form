@@ -187,14 +187,16 @@
         <Component class="javax.swing.JComboBox" name="cmbLanche">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
+              <StringArray count="4">
+                <StringItem index="0" value="Hamburguer"/>
+                <StringItem index="1" value="X-Egg"/>
+                <StringItem index="2" value="X-Bacon"/>
+                <StringItem index="3" value="Xtudo"/>
+              </StringArray>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNome">
-          <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnPesqCli">
           <Properties>
@@ -247,6 +249,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Bife"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkBifeActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSpinner" name="spnBife">
               <Properties>
@@ -260,6 +265,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Queijo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkQueijoActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="PedidosDlg_chkQueijo"/>
               </AuxValues>
@@ -276,6 +284,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Presunto"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkPresuntoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSpinner" name="spnPresunto">
               <Properties>
@@ -289,6 +300,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ovo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkOvoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSpinner" name="spnOvo">
               <Properties>
@@ -306,9 +320,6 @@
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Entrega"/>
               </Border>
-            </Property>
-            <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="default"/>
             </Property>
           </Properties>
 
@@ -374,11 +385,14 @@
             </Property>
             <Property name="text" type="java.lang.String" value=" Lanche"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddLancheActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSpinner" name="spnQtde">
           <Properties>
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-              <SpinnerModel initial="1" maximum="10" numberType="java.lang.Integer" stepSize="1" type="number"/>
+              <SpinnerModel initial="1" maximum="10" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
           </Properties>
         </Component>
@@ -431,7 +445,8 @@
             <Component class="javax.swing.JTable" name="tblPedidos">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="7" rowCount="0">
+                  <Table columnCount="9" rowCount="0">
+                    <Column editable="true" title="Nome" type="java.lang.Object"/>
                     <Column editable="false" title="Lanche" type="java.lang.Object"/>
                     <Column editable="false" title="Qtde" type="java.lang.Object"/>
                     <Column editable="false" title="Bife" type="java.lang.Object"/>
@@ -439,10 +454,8 @@
                     <Column editable="false" title="Presunto" type="java.lang.Object"/>
                     <Column editable="false" title="Ovo" type="java.lang.Object"/>
                     <Column editable="false" title="Ingredientes" type="java.lang.Object"/>
+                    <Column editable="false" title="Entregar" type="java.lang.Object"/>
                   </Table>
-                </Property>
-                <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                  <ComponentRef name="default"/>
                 </Property>
               </Properties>
             </Component>
