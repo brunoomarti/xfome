@@ -2,6 +2,7 @@ package intergraf;
 
 import java.util.List;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,6 +32,13 @@ public class DlgCadPedido extends javax.swing.JDialog {
     private void initComponents() {
 
         grpEntrega = new javax.swing.ButtonGroup();
+        mnuPedido = new javax.swing.JPopupMenu();
+        mnuInserir = new javax.swing.JMenuItem();
+        mnuExcluir = new javax.swing.JMenuItem();
+        mnuTeste = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         lblNome = new javax.swing.JLabel();
         lblLanche = new javax.swing.JLabel();
@@ -62,11 +70,37 @@ public class DlgCadPedido extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPedidos = new javax.swing.JTable();
 
+        mnuInserir.setText("Inserir");
+        mnuInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddLancheActionPerformed(evt);
+            }
+        });
+        mnuPedido.add(mnuInserir);
+
+        mnuExcluir.setText("Excluir");
+        mnuExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuExcluirActionPerformed(evt);
+            }
+        });
+        mnuPedido.add(mnuExcluir);
+
+        jMenuItem1.setText("jMenuItem1");
+        mnuTeste.add(jMenuItem1);
+
+        jMenuItem2.setText("jMenuItem2");
+        mnuTeste.add(jMenuItem2);
+
+        jMenuItem3.setText("jMenuItem3");
+        mnuTeste.add(jMenuItem3);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Pedidos");
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Cadastro de Pedido", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), new java.awt.Color(51, 51, 255))); // NOI18N
+        jPanel1.setComponentPopupMenu(mnuTeste);
 
         lblNome.setText("Nome");
 
@@ -81,10 +115,12 @@ public class DlgCadPedido extends javax.swing.JDialog {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        lstIngredientes.setComponentPopupMenu(mnuTeste);
         lstIngredientes.setSelectedIndices(new int[] {-1});
         jScrollPane1.setViewportView(lstIngredientes);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("++ Mais ++"));
+        jPanel3.setComponentPopupMenu(mnuTeste);
         jPanel3.setLayout(new java.awt.GridLayout(4, 2));
 
         chkBife.setText("Bife");
@@ -136,6 +172,7 @@ public class DlgCadPedido extends javax.swing.JDialog {
         jPanel3.add(spnOvo);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Entrega"));
+        jPanel4.setComponentPopupMenu(mnuTeste);
         jPanel4.setLayout(new java.awt.BorderLayout());
 
         grpEntrega.add(rdbSim);
@@ -266,6 +303,7 @@ public class DlgCadPedido extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblPedidos.setComponentPopupMenu(mnuPedido);
         jScrollPane2.setViewportView(tblPedidos);
 
         jPanel5.add(jScrollPane2, java.awt.BorderLayout.CENTER);
@@ -338,6 +376,22 @@ public class DlgCadPedido extends javax.swing.JDialog {
         
     }//GEN-LAST:event_btnAddLancheActionPerformed
 
+    private void mnuExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExcluirActionPerformed
+        int linha = tblPedidos.getSelectedRow();
+        if ( linha >=0 ) {
+            
+            if ( JOptionPane.showConfirmDialog(this, "Desejar realmente excluir?", "Título", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION  ) {
+                // EXCLUIR LINHA NA TABELA        
+                ( (DefaultTableModel) tblPedidos.getModel() ).removeRow( linha );
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione uma linha.", "Título",
+                            JOptionPane.ERROR_MESSAGE   );
+        }            
+        
+    }//GEN-LAST:event_mnuExcluirActionPerformed
+
     
     private void habilitarSpinner(JCheckBox chk, JSpinner spn ) {
         if ( chk.isSelected()  ) {
@@ -346,6 +400,7 @@ public class DlgCadPedido extends javax.swing.JDialog {
             spn.setEnabled(false);        
             spn.setValue(0);
         }
+        
     }
     
     
@@ -385,6 +440,9 @@ public class DlgCadPedido extends javax.swing.JDialog {
     private javax.swing.ButtonGroup grpEntrega;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -395,6 +453,10 @@ public class DlgCadPedido extends javax.swing.JDialog {
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblValor;
     private javax.swing.JList lstIngredientes;
+    private javax.swing.JMenuItem mnuExcluir;
+    private javax.swing.JMenuItem mnuInserir;
+    private javax.swing.JPopupMenu mnuPedido;
+    private javax.swing.JPopupMenu mnuTeste;
     private javax.swing.JRadioButton rdbNao;
     private javax.swing.JRadioButton rdbSim;
     private javax.swing.JSpinner spnBife;

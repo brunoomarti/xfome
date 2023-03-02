@@ -1,5 +1,16 @@
 package intergraf;
 
+import java.awt.Color;
+import java.awt.Image;
+import java.io.File;
+import java.text.ParseException;
+import java.util.Date;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -29,6 +40,7 @@ public class DlgCadCliente extends javax.swing.JDialog {
 
         grpSexo = new javax.swing.ButtonGroup();
         grpTeste = new javax.swing.ButtonGroup();
+        jFileChooser1 = new javax.swing.JFileChooser();
         jPanel5 = new javax.swing.JPanel();
         lblNum = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
@@ -79,6 +91,8 @@ public class DlgCadCliente extends javax.swing.JDialog {
 
         lblTelFixo.setText("Tel. Fixo");
 
+        cmbCidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Colatina", "São Gabriel da Palha", "Baixo Guandu", "Marilândia" }));
+
         lblComplem.setText("Complemento");
 
         lblEnder7.setText("E-mail");
@@ -94,6 +108,11 @@ public class DlgCadCliente extends javax.swing.JDialog {
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intergraf/imagens/add.png"))); // NOI18N
         btnNovo.setMnemonic('N');
         btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intergraf/imagens/remove.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -119,6 +138,11 @@ public class DlgCadCliente extends javax.swing.JDialog {
         lblFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFoto.setText("Foto");
         lblFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblFoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblFotoMouseClicked(evt);
+            }
+        });
 
         lblCEP.setText("CEP");
 
@@ -127,6 +151,11 @@ public class DlgCadCliente extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCEP.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCEPFocusLost(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intergraf/imagens/repeat.png"))); // NOI18N
         btnAlterar.setMnemonic('A');
@@ -219,8 +248,8 @@ public class DlgCadCliente extends javax.swing.JDialog {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(4, 4, 4)
-                        .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(14, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnAlterar)
@@ -296,7 +325,7 @@ public class DlgCadCliente extends javax.swing.JDialog {
                     .addComponent(btnNovo)
                     .addComponent(btnCancelar)
                     .addComponent(btnAlterar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel5);
@@ -304,7 +333,131 @@ public class DlgCadCliente extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        String nome = txtNome.getText();
+        String cpf = txtCpf.getText();
+        String txtDtNasc = txtData.getText();
 
+        String cidade = cmbCidade.getSelectedItem().toString();
+
+        char sexo = (char) grpSexo.getSelection().getMnemonic();
+        String cep = txtCEP.getText();
+        String ender = txtEnder.getText();
+        String txtNumero = txtNum.getText();
+        String complemento = txtComplemento.getText();
+        String bairro = txtBairro.getText();
+        String referencia = txtRef.getText();
+        String telFixo = txtTel.getText();
+        String celular = txtCelular.getText();
+        String email = txtEmail.getText();
+        //Icon foto = lblFoto.getIcon();
+        
+        if ( validarCampos() ) {
+            // INSERIR NO BANCO
+            
+        }
+        
+    }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void lblFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFotoMouseClicked
+    
+        JFileChooser janArq = new JFileChooser();
+        
+        janArq.setAcceptAllFileFilterUsed(false);
+        janArq.setFileFilter( new FileNameExtensionFilter("Arquivos de imagem", "jpg", "png", "gif", "bmp") );
+        janArq.addChoosableFileFilter( new FileNameExtensionFilter("Arquivos de texto", "txt", "doc", "docx") );
+        
+        if ( janArq.showOpenDialog(this) == JFileChooser.APPROVE_OPTION  ) {
+            File arquivo = janArq.getSelectedFile();
+            Icon imagem = new ImageIcon( arquivo.getAbsolutePath() );
+            
+            mostrarFoto(imagem);
+        }
+        
+        
+    }//GEN-LAST:event_lblFotoMouseClicked
+
+    private void txtCEPFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCEPFocusLost
+        Endereco ender = BuscaCEP.getEnderecoPorCep( txtCEP.getText() );
+        
+        if ( ender != null ){
+            txtEnder.setText( ender.getLogradouro() );
+            txtBairro.setText( ender.getBairro() );
+            cmbCidade.setSelectedItem( ender.getCidade() );
+        }
+        
+    }//GEN-LAST:event_txtCEPFocusLost
+
+    
+    private boolean validarCampos() {
+        
+        String msgErro = "";
+        
+        lblNome.setForeground(Color.black);
+        lblCEP.setForeground(Color.black); 
+        lblNum.setForeground(Color.black);
+        lblCpf.setForeground(Color.black); 
+        lblDtNasc.setForeground(Color.black); 
+        
+        if ( txtNome.getText().isEmpty() ) {
+            msgErro = msgErro + "Digite seu nome.\n";
+            lblNome.setForeground(Color.red);            
+        }
+              
+        if ( txtCEP.getText().replace("-", "").trim().isEmpty() ) {
+            msgErro = msgErro + "Digite seu CEP.\n";
+            lblCEP.setForeground(Color.red);            
+        }
+        
+        if ( FuncoesUteis.isCPF( txtCpf.getText() ) == false  ) {
+            msgErro = msgErro + "CPF inválido.\n";
+            lblCpf.setForeground(Color.red); 
+        }
+        try {
+            int num = Integer.parseInt(txtNum.getText() );
+        }
+        catch (NumberFormatException erro) {
+            msgErro = msgErro + "Número inválido.\n";
+            lblNum.setForeground(Color.red); 
+        }
+        catch (Exception erro) {
+            msgErro = msgErro + erro.getMessage() + "\n";
+            lblNum.setForeground(Color.red); 
+        }
+        
+        try {
+            Date dtNasc = FuncoesUteis.strToDate(txtData.getText() );
+        }
+        catch (ParseException ex) {
+            msgErro = msgErro + "Data inválida.\n";
+            lblDtNasc.setForeground(Color.red); 
+        }
+        catch (Exception erro) {
+            msgErro = msgErro + erro.getMessage() + "\n";
+            lblNum.setForeground(Color.red); 
+        }
+        
+                
+        // COLOCAR VALIDAÇÃO DOS OUTROS CAMPOS
+        
+        if ( msgErro.isEmpty() ) {
+            return true;
+        } else {            
+            JOptionPane.showMessageDialog(this, msgErro, "ERRO Cliente", JOptionPane.ERROR_MESSAGE  );
+            return false;
+        }
+        
+    } 
+    
+    private void mostrarFoto(Icon ic) {
+        
+        // Redimensionar
+        ImageIcon imagem = (ImageIcon) ic;
+        imagem.setImage(imagem.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_DEFAULT));
+        
+        lblFoto.setText("");                
+        lblFoto.setIcon(imagem);
+    } 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -314,6 +467,7 @@ public class DlgCadCliente extends javax.swing.JDialog {
     private javax.swing.JComboBox cmbCidade;
     private javax.swing.ButtonGroup grpSexo;
     private javax.swing.ButtonGroup grpTeste;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel lblCEP;

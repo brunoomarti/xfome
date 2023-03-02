@@ -217,6 +217,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        // TRADUÇÃO
+        javax.swing.UIManager.put("OptionPane.yesButtonText", "Sim"); 
+        javax.swing.UIManager.put("OptionPane.noButtonText", "Não");
+        
+        
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
