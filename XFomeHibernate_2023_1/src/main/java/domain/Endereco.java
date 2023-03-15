@@ -1,4 +1,4 @@
-package intergraf;
+package domain;
 
 import java.io.Serializable;
 

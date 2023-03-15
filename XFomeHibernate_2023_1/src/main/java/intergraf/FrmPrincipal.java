@@ -5,17 +5,22 @@
  */
 package intergraf;
 
+import gerTarefas.GerInterGrafica;
+
 /**
  *
  * @author 1547816
  */
 public class FrmPrincipal extends javax.swing.JFrame {
 
+    private GerInterGrafica gerIG;
+    
     /**
      * Creates new form FrmPrincipal
      */
-    public FrmPrincipal() {
+    public FrmPrincipal(GerInterGrafica gerIG) {
         initComponents();
+        this.gerIG = gerIG;
     }
 
     /**
@@ -175,61 +180,16 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void mnuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClienteActionPerformed
         // INSTANCIAÇÃO
-        DlgCadCliente objCadCliente = new DlgCadCliente(this,false);
-        
-        // ABRIR a janela
-        objCadCliente.setVisible(true);
+        gerIG.janelaCadCliente();
         
         
     }//GEN-LAST:event_mnuClienteActionPerformed
 
     private void mnuCadPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCadPedidoActionPerformed
-        DlgCadPedido objCadPedido = new DlgCadPedido(this,false);
-        objCadPedido.setVisible(true);
-        
+        gerIG.janelaCadPedido();
     }//GEN-LAST:event_mnuCadPedidoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                // System.out.println( info.getName() );
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        // TRADUÇÃO
-        javax.swing.UIManager.put("OptionPane.yesButtonText", "Sim"); 
-        javax.swing.UIManager.put("OptionPane.noButtonText", "Não");
-        
-        
-        
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmPrincipal().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup grpMenuFerramentas;

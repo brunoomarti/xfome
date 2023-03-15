@@ -1,5 +1,9 @@
 package intergraf;
 
+import gerTarefas.FuncoesUteis;
+import domain.Endereco;
+import gerTarefas.BuscaCEP;
+import gerTarefas.GerInterGrafica;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
@@ -23,10 +27,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class DlgCadCliente extends javax.swing.JDialog {
    
+    private GerInterGrafica gerIG;
     
-    public DlgCadCliente(java.awt.Frame parent, boolean modal ) {
+    
+    public DlgCadCliente(java.awt.Frame parent, boolean modal, GerInterGrafica gerIG ) {
         initComponents();
-
+        this.gerIG = gerIG;
     }
 
     /**

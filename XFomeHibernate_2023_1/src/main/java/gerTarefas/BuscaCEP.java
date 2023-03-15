@@ -1,4 +1,4 @@
-package intergraf;
+package gerTarefas;
 
 
 /*
@@ -8,6 +8,7 @@ package intergraf;
  */
 
 
+import domain.Endereco;
 import jakarta.xml.soap.MessageFactory;
 import jakarta.xml.soap.SOAPMessage;
 import java.io.ByteArrayInputStream;

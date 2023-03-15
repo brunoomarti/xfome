@@ -1,5 +1,6 @@
 package intergraf;
 
+import gerTarefas.GerInterGrafica;
 import java.util.List;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -18,8 +19,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DlgCadPedido extends javax.swing.JDialog {
     
-    public DlgCadPedido(java.awt.Frame parent, boolean modal) {
+    private GerInterGrafica gerIG;
+    
+    public DlgCadPedido(java.awt.Frame parent, boolean modal, GerInterGrafica gerIG) {
         initComponents();
+        this.gerIG = gerIG;
     }
 
     /**
