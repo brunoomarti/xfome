@@ -232,7 +232,7 @@
                       <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="13" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -267,12 +267,7 @@
         <Component class="javax.swing.JComboBox" name="cmbCidade">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Colatina"/>
-                <StringItem index="1" value="S&#xe3;o Gabriel da Palha"/>
-                <StringItem index="2" value="Baixo Guandu"/>
-                <StringItem index="3" value="Maril&#xe2;ndia"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
         </Component>

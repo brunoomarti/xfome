@@ -8,7 +8,7 @@ package gerTarefas;
  */
 
 
-import domain.Endereco;
+import dominio.Endereco;
 import jakarta.xml.soap.MessageFactory;
 import jakarta.xml.soap.SOAPMessage;
 import java.io.ByteArrayInputStream;

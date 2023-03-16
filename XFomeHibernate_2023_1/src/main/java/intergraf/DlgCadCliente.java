@@ -1,7 +1,7 @@
 package intergraf;
 
 import gerTarefas.FuncoesUteis;
-import domain.Endereco;
+import dominio.Endereco;
 import gerTarefas.BuscaCEP;
 import gerTarefas.GerInterGrafica;
 import java.awt.Color;
@@ -96,8 +96,6 @@ public class DlgCadCliente extends javax.swing.JDialog {
         lblEnder.setText("Endereço");
 
         lblTelFixo.setText("Tel. Fixo");
-
-        cmbCidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Colatina", "São Gabriel da Palha", "Baixo Guandu", "Marilândia" }));
 
         lblComplem.setText("Complemento");
 
@@ -331,7 +329,7 @@ public class DlgCadCliente extends javax.swing.JDialog {
                     .addComponent(btnNovo)
                     .addComponent(btnCancelar)
                     .addComponent(btnAlterar))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel5);
