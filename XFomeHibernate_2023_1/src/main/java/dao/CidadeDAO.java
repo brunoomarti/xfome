@@ -30,7 +30,7 @@ public class CidadeDAO {
         // Registros em Objetos
         while ( res.next() ) {
             int id = res.getInt("idCidade");
-            String nome = res.getString("nomeCidade");
+            String nome = res.getString("nome");
             
             Cidade cid = new Cidade(id,nome);
             lista.add(cid);

@@ -6,7 +6,6 @@
 package dominio;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -19,26 +18,84 @@ public class Cliente {
     private String cpf;
     private Date dtNasc;   
     private char sexo;     
+    private String cep;
+    private String endereco;
+    private String bairro;
+    private int num;
+    private String complemento;
+    private String referencia;
     private String telFixo;
     private String celular;    
     private String email;
     private byte[] foto;
-    private Endereco endereco;
     private Cidade cidade;
 
-    public Cliente(int idCliente, String nome, String cpf, Date dtNasc, char sexo, String telFixo, String celular, String email, byte[] foto, Endereco endereco, Cidade cidade) {
-        this.idCliente = idCliente;
+    public Cliente(String nome, String cpf, Date dtNasc, char sexo, String cep, String endereco, String bairro, int num, String complemento, String referencia, String telFixo, String celular, String email, byte[] foto, Cidade cidade) {
         this.nome = nome;
         this.cpf = cpf;
         this.dtNasc = dtNasc;
         this.sexo = sexo;
+        this.cep = cep;
+        this.endereco = endereco;
+        this.bairro = bairro;
+        this.num = num;
+        this.complemento = complemento;
+        this.referencia = referencia;
         this.telFixo = telFixo;
         this.celular = celular;
         this.email = email;
         this.foto = foto;
-        this.endereco = endereco;
         this.cidade = cidade;
     }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
 
     public int getIdCliente() {
         return idCliente;
@@ -112,13 +169,6 @@ public class Cliente {
         this.foto = foto;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
 
     public Cidade getCidade() {
         return cidade;

@@ -9,13 +9,12 @@ import dominio.Cidade;
 import intergraf.DlgCadCliente;
 import intergraf.DlgCadPedido;
 import intergraf.DlgFerramentas;
+import intergraf.DlgPesqCliente;
 import intergraf.FrmPrincipal;
 import java.awt.Frame;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -32,6 +31,7 @@ public class GerInterGrafica {
     private DlgCadCliente janCadCli = null;
     private DlgCadPedido janCadPed = null;
     private DlgFerramentas janFer = null;
+    private DlgPesqCliente janPesqCli = null;
     
     
     // GERENCIADORES de DOMINIO
@@ -44,6 +44,10 @@ public class GerInterGrafica {
             JOptionPane.showMessageDialog(janPrinc, "Erro de conexão com o banco. " + ex.getMessage() );
                 System.exit(-1);
         } 
+    }
+
+    public GerenciadorDominio getGerDominio() {
+        return gerDominio;
     }
     
     
@@ -82,11 +86,15 @@ public class GerInterGrafica {
         janFer = (DlgFerramentas) abrirJanela(janPrinc, janFer, DlgFerramentas.class);
     }
 
+    public void janelaPesqCliente() {
+        janPesqCli = (DlgPesqCliente) abrirJanela(janPrinc, janPesqCli, DlgPesqCliente.class);
+    }
+
     public void carregarComboCidades(JComboBox combo) {
         
         try {
             List<Cidade> lista = gerDominio.listarCidades();
-            combo.setModel( new DefaultComboBoxModel(lista.toArray()  )   );
+            combo.setModel( new DefaultComboBoxModel( lista.toArray() )  );
                                    
         } catch (ClassNotFoundException | SQLException  ex) {
             JOptionPane.showMessageDialog(janPrinc, "Erro ao carregar cidades. " + ex.getMessage() );          

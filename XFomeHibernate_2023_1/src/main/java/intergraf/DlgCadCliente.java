@@ -1,5 +1,6 @@
 package intergraf;
 
+import dominio.Cidade;
 import gerTarefas.FuncoesUteis;
 import dominio.Endereco;
 import gerTarefas.BuscaCEP;
@@ -7,8 +8,11 @@ import gerTarefas.GerInterGrafica;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -85,6 +89,11 @@ public class DlgCadCliente extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Cliente");
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Cadastro de Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), new java.awt.Color(51, 51, 255))); // NOI18N
@@ -122,6 +131,11 @@ public class DlgCadCliente extends javax.swing.JDialog {
         btnCancelar.setText("Cancelar");
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intergraf/imagens/search.png"))); // NOI18N
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         lblCpf.setText("CPF");
 
@@ -342,7 +356,7 @@ public class DlgCadCliente extends javax.swing.JDialog {
         String cpf = txtCpf.getText();
         String txtDtNasc = txtData.getText();
 
-        String cidade = cmbCidade.getSelectedItem().toString();
+        Cidade cidade = (Cidade) cmbCidade.getSelectedItem();
 
         char sexo = (char) grpSexo.getSelection().getMnemonic();
         String cep = txtCEP.getText();
@@ -354,11 +368,27 @@ public class DlgCadCliente extends javax.swing.JDialog {
         String telFixo = txtTel.getText();
         String celular = txtCelular.getText();
         String email = txtEmail.getText();
-        //Icon foto = lblFoto.getIcon();
+        Icon foto = lblFoto.getIcon();
         
         if ( validarCampos() ) {
             // INSERIR NO BANCO
+            try {
+                Date dt = FuncoesUteis.strToDate(txtDtNasc);
+                byte[] fotoBytes = FuncoesUteis.IconToBytes(foto);
+                int num = Integer.parseInt(txtNumero);
+                
+                int id = gerIG.getGerDominio().inserirCliente(nome, cpf, dt, sexo, cep, ender,  bairro, num, complemento, referencia, telFixo, celular, email, fotoBytes, cidade);
+                
+                JOptionPane.showMessageDialog(this, "Cliente " + id + "inserido com sucesso.", "Inserir Cliente", JOptionPane.INFORMATION_MESSAGE  );
+                
+            } catch (ParseException | ClassNotFoundException | SQLException  ex) {
+                JOptionPane.showMessageDialog(this, ex, "ERRO Cliente", JOptionPane.ERROR_MESSAGE  );
+            }
+            catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex, "ERRO Cliente", JOptionPane.ERROR_MESSAGE  );
+            }
             
+        
         }
         
     }//GEN-LAST:event_btnNovoActionPerformed
@@ -391,6 +421,14 @@ public class DlgCadCliente extends javax.swing.JDialog {
         }
         
     }//GEN-LAST:event_txtCEPFocusLost
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        gerIG.carregarComboCidades(cmbCidade);
+    }//GEN-LAST:event_formComponentShown
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        gerIG.janelaPesqCliente();
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     
     private boolean validarCampos() {

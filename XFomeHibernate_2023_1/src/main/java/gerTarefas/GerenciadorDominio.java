@@ -6,9 +6,12 @@
 package gerTarefas;
 
 import dao.CidadeDAO;
+import dao.ClienteDAO;
 import dao.ConexaoMySQL;
 import dominio.Cidade;
+import dominio.Cliente;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,7 +20,7 @@ import java.util.List;
  */
 public class GerenciadorDominio {
 
-    //ClienteDAO cliDao = null;
+    ClienteDAO cliDao = null;
     CidadeDAO cidDao = null;
     
     public GerenciadorDominio() throws ClassNotFoundException, SQLException {
@@ -25,7 +28,7 @@ public class GerenciadorDominio {
         ConexaoMySQL.obterConexao();
         
         cidDao = new CidadeDAO();
-        //cliDao = new ClienteDAO();
+        cliDao = new ClienteDAO();
     }
     
     public List<Cidade> listarCidades() throws ClassNotFoundException, SQLException {
@@ -33,6 +36,13 @@ public class GerenciadorDominio {
         return cidDao.listar();
         
     }
+    
+    public int inserirCliente (String nome, String cpf, Date dtNasc, char sexo, String cep, String ender, String bairro, int num, String complemento, String referencia, String telFixo, String celular, String email, byte[] foto, Cidade cidade) throws ClassNotFoundException, SQLException {
+        Cliente cli = new Cliente(nome, cpf, dtNasc, sexo, cep, ender,  bairro, num, complemento, referencia, telFixo, celular, email, foto, cidade);
+        int id = cliDao.inserir(cli);
+        return id;
+    }
+    
     
     
 }

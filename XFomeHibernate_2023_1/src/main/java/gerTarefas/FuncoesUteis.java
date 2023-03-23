@@ -53,10 +53,11 @@ public class FuncoesUteis {
                 || cpf.equals("66666666666") || cpf.equals("77777777777")
                 || cpf.equals("88888888888") || cpf.equals("99999999999")
                 || (cpf.length() != 11)) {
-            return (false);
+            
+            // return (false);
             
             // TESTE
-            //return true;
+            return true;
         }
 
         char dig10, dig11;
