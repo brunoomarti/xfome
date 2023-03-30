@@ -1,7 +1,20 @@
 package intergraf;
 
 
+import dominio.Cliente;
 import gerTarefas.GerInterGrafica;
+import java.awt.Component;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 
 
@@ -17,6 +30,21 @@ public class DlgPesqCliente extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.gerIG = gerIG;
+        
+        // Para colocar um FOTO em UMA CELULA DA TABELA
+        tblClientes.getColumnModel().getColumn(5).setCellRenderer( 
+            new TableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
+                    // OBJETO FINAL
+                    JLabel label = new JLabel();
+                    if ( o != null)
+                        label.setIcon( new ImageIcon( (byte[]) o) );
+                    return label;
+                }
+            } 
+        );
+        
               
     }
 
@@ -64,6 +92,11 @@ public class DlgPesqCliente extends javax.swing.JDialog {
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intergraf/imagens/search.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         btnSelecionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intergraf/imagens/accept.png"))); // NOI18N
         btnSelecionar.setText("Selecionar");
@@ -125,6 +158,26 @@ public class DlgPesqCliente extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        try {
+            List<Cliente> lista = gerIG.getGerDominio().listarClientes();
+            
+            // APAGA as linhas da tabela
+            ( (DefaultTableModel) tblClientes.getModel() ).setNumRows(0);
+            
+            for (Cliente cli : lista ) {
+                // ADICIONAR LINHA NA TABELA        
+                ( (DefaultTableModel) tblClientes.getModel() ).addRow( cli.toArray() );                
+            }
+            
+            
+        } catch (ClassNotFoundException | ParseException | SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex, "ERRO ao PESQUISAR Cliente", JOptionPane.ERROR_MESSAGE  );
+        } 
+        
+        
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     
 

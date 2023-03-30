@@ -117,9 +117,6 @@ public class ClienteDAO {
             
             cli.setIdCliente( rs.getInt("idCliente") );
             lista.add(cli);
-            
-            
-            lista.add(cli);
         }
         
         return lista;

@@ -112,6 +112,8 @@ public class DlgCadPedido extends javax.swing.JDialog {
 
         cmbLanche.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hamburguer", "X-Egg", "X-Bacon", "Xtudo" }));
 
+        txtNome.setEnabled(false);
+
         btnPesqCli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intergraf/imagens/search.png"))); // NOI18N
 
         lstIngredientes.setModel(new javax.swing.AbstractListModel() {

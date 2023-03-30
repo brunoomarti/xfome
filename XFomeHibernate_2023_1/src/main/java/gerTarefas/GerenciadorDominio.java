@@ -37,6 +37,12 @@ public class GerenciadorDominio {
         
     }
     
+    public List<Cliente> listarClientes() throws ClassNotFoundException, SQLException {
+        
+        return cliDao.listar();
+        
+    }
+    
     public int inserirCliente (String nome, String cpf, Date dtNasc, char sexo, String cep, String ender, String bairro, int num, String complemento, String referencia, String telFixo, String celular, String email, byte[] foto, Cidade cidade) throws ClassNotFoundException, SQLException {
         Cliente cli = new Cliente(nome, cpf, dtNasc, sexo, cep, ender,  bairro, num, complemento, referencia, telFixo, celular, email, foto, cidade);
         int id = cliDao.inserir(cli);

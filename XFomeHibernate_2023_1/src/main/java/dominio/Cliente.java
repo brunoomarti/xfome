@@ -5,6 +5,7 @@
  */
 package dominio;
 
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -124,6 +125,10 @@ public class Cliente {
     public Date getDtNasc() {
         return dtNasc;
     }
+    
+    public String getDtNascFormatada() throws ParseException {
+        return gerTarefas.FuncoesUteis.dateToStr(dtNasc);
+    }
 
     public void setDtNasc(Date dtNasc) {
         this.dtNasc = dtNasc;
@@ -178,6 +183,12 @@ public class Cliente {
         this.cidade = cidade;
     }
     
+    public Object[] toArray() throws ParseException {
+        return new Object[] { this, bairro,  cidade, getDtNascFormatada(), celular, foto };
+    }
 
-    
+    @Override
+    public String toString() {
+        return nome;
+    }
 }
