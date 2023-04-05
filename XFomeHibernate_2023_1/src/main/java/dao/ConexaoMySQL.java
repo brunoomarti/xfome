@@ -26,7 +26,7 @@ public class ConexaoMySQL {
             String url = "jdbc:mysql://" + servidor + "/" + nomeBanco;
             
             // Definição do Driver do banco
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conexao = DriverManager.getConnection( url , login, senha);
             return conexao;        
         

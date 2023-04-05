@@ -93,13 +93,26 @@ public class ClienteDAO {
         String sql = "DELETE FROM Cliente WHERE idCliente = " + cli.getIdCliente();
         stmt.execute(sql); 
     }
+        
     
-    
-    public List<Cliente> listar() throws ClassNotFoundException, SQLException {
+    private List<Cliente> pesquisar(String pesq, int tipo) throws ClassNotFoundException, SQLException {
         List<Cliente> lista = new ArrayList();
         
         Statement stmt = ConexaoMySQL.obterConexao().createStatement();
         String sql = "SELECT * FROM Cliente as cli, Cidade as cid WHERE cli.idCidade = cid.idCidade ";
+        
+        switch (tipo) {
+            case 0:
+                sql = sql + "AND cli.nome LIKE '" + pesq + "%' "; break;
+
+            case 1:
+                sql = sql + "AND cli.bairro LIKE '" + pesq + "%' "; break;
+
+            case 2:
+                sql = sql + "AND MONTH(dtNasc) = " + pesq ; break;
+            case 3:
+                sql = sql + "AND cpf LIKE '" + pesq + "'"; break;
+        }
         
         ResultSet rs = stmt.executeQuery(sql);
         
@@ -117,16 +130,30 @@ public class ClienteDAO {
             
             cli.setIdCliente( rs.getInt("idCliente") );
             lista.add(cli);
+           
         }
         
         return lista;
     }
     
-    public List<Cliente> pesquisarNome(String nome) {
-        return null;
+    public List<Cliente> listar() throws ClassNotFoundException, SQLException {
+        return pesquisar("",-1);
+    }
+        
+    public List<Cliente> pesquisarNome(String pesq) throws ClassNotFoundException, SQLException {
+        return pesquisar(pesq,0);
     }
     
-    public List<Cliente> pesquisarCPF(String cpf) {
-        return null;
+    
+    public List<Cliente> pesquisarBairro(String pesq) throws ClassNotFoundException, SQLException {
+        return pesquisar(pesq,1);
+    }
+    
+    public List<Cliente> pesquisarMes(String pesq) throws ClassNotFoundException, SQLException {
+        return pesquisar(pesq,2);
+    }
+    
+    public List<Cliente> pesquisarCPF(String pesq) throws ClassNotFoundException, SQLException {
+        return pesquisar(pesq,3);
     }
 }

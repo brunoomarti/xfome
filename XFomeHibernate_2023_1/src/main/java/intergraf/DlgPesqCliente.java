@@ -103,10 +103,15 @@ public class DlgPesqCliente extends javax.swing.JDialog {
 
         btnCancelar.setText("Cancelar");
 
-        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nome", "Bairro", "Mês" }));
+        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nome", "Bairro", "Mês", "CPF" }));
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intergraf/imagens/remove.png"))); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnRelatorios.setText("Relatório");
 
@@ -161,7 +166,7 @@ public class DlgPesqCliente extends javax.swing.JDialog {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         try {
-            List<Cliente> lista = gerIG.getGerDominio().listarClientes();
+            List<Cliente> lista = gerIG.getGerDominio().pesquisarCliente(txtPesq.getText(), cmbTipo.getSelectedIndex() );
             
             // APAGA as linhas da tabela
             ( (DefaultTableModel) tblClientes.getModel() ).setNumRows(0);
@@ -178,6 +183,28 @@ public class DlgPesqCliente extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        
+        int linha = tblClientes.getSelectedRow();
+        if ( linha >= 0 ) {
+            
+            try {
+                Cliente cli = (Cliente) tblClientes.getValueAt(linha, 0);
+                if ( JOptionPane.showConfirmDialog(this, "Deseja realmente excluir esse cliente?", "Título", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION ) {
+                    gerIG.getGerDominio().excluirCliente(cli);
+                    ( (DefaultTableModel) tblClientes.getModel() ).removeRow(linha);
+                    JOptionPane.showMessageDialog(this, "Cliente " + cli.getNome() + " excluído com sucesso.", "ERRO ao PESQUISAR Cliente", JOptionPane.ERROR_MESSAGE  );
+                }
+                
+            } catch (ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, ex, "ERRO ao PESQUISAR Cliente", JOptionPane.ERROR_MESSAGE  );
+            }             
+        }        
+        else {
+            JOptionPane.showMessageDialog(this,"Selecione uma linha.", "Pesquisar cliente", JOptionPane.ERROR_MESSAGE  );
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     
 
