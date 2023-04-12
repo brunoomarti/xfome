@@ -6,6 +6,7 @@
 package gerTarefas;
 
 import dominio.Cidade;
+import dominio.Cliente;
 import intergraf.DlgCadCliente;
 import intergraf.DlgCadPedido;
 import intergraf.DlgFerramentas;
@@ -86,8 +87,9 @@ public class GerInterGrafica {
         janFer = (DlgFerramentas) abrirJanela(janPrinc, janFer, DlgFerramentas.class);
     }
 
-    public void janelaPesqCliente() {
+    public Cliente janelaPesqCliente() {
         janPesqCli = (DlgPesqCliente) abrirJanela(janPrinc, janPesqCli, DlgPesqCliente.class);
+        return janPesqCli.getCliente();
     }
 
     public void carregarComboCidades(JComboBox combo) {

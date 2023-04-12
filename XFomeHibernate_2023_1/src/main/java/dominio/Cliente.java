@@ -7,6 +7,7 @@ package dominio;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -191,4 +192,35 @@ public class Cliente {
     public String toString() {
         return nome;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 19 * hash + this.idCliente;
+        hash = 19 * hash + Objects.hashCode(this.nome);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cliente other = (Cliente) obj;
+        if (this.idCliente != other.idCliente) {
+            return false;
+        }
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

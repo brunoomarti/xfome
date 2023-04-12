@@ -7,8 +7,6 @@ import java.awt.Component;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,11 +23,13 @@ import javax.swing.table.TableCellRenderer;
 public class DlgPesqCliente extends javax.swing.JDialog {
 
     private GerInterGrafica gerIG;
+    private Cliente cliSelecionado;
 
     public DlgPesqCliente(java.awt.Frame parent, boolean modal, GerInterGrafica gerIG) {
         super(parent, modal);
         initComponents();
         this.gerIG = gerIG;
+        cliSelecionado = null;
         
         // Para colocar um FOTO em UMA CELULA DA TABELA
         tblClientes.getColumnModel().getColumn(5).setCellRenderer( 
@@ -48,6 +48,9 @@ public class DlgPesqCliente extends javax.swing.JDialog {
               
     }
 
+    public Cliente getCliente() {
+        return cliSelecionado;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -100,8 +103,18 @@ public class DlgPesqCliente extends javax.swing.JDialog {
 
         btnSelecionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intergraf/imagens/accept.png"))); // NOI18N
         btnSelecionar.setText("Selecionar");
+        btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nome", "Bairro", "Mês", "CPF" }));
 
@@ -205,6 +218,24 @@ public class DlgPesqCliente extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this,"Selecione uma linha.", "Pesquisar cliente", JOptionPane.ERROR_MESSAGE  );
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        cliSelecionado = null;
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
+        
+        int linha = tblClientes.getSelectedRow();
+        if ( linha >= 0 ) {
+            cliSelecionado = (Cliente) tblClientes.getValueAt(linha, 0);
+        }
+        else {
+            JOptionPane.showMessageDialog(this,"Selecione uma linha.", "Pesquisar cliente", JOptionPane.ERROR_MESSAGE  );
+        }
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnSelecionarActionPerformed
 
     
 

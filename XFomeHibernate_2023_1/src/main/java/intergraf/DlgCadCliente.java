@@ -1,6 +1,7 @@
 package intergraf;
 
 import dominio.Cidade;
+import dominio.Cliente;
 import gerTarefas.FuncoesUteis;
 import dominio.Endereco;
 import gerTarefas.BuscaCEP;
@@ -32,11 +33,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class DlgCadCliente extends javax.swing.JDialog {
    
     private GerInterGrafica gerIG;
+    private Cliente cliSelecionado;
     
     
     public DlgCadCliente(java.awt.Frame parent, boolean modal, GerInterGrafica gerIG ) {
         initComponents();
         this.gerIG = gerIG;
+        cliSelecionado = null;
+        habilitarBotoes();
     }
 
     /**
@@ -129,6 +133,11 @@ public class DlgCadCliente extends javax.swing.JDialog {
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intergraf/imagens/remove.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intergraf/imagens/search.png"))); // NOI18N
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -178,6 +187,11 @@ public class DlgCadCliente extends javax.swing.JDialog {
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/intergraf/imagens/repeat.png"))); // NOI18N
         btnAlterar.setMnemonic('A');
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Sexo"));
         jPanel2.setLayout(new java.awt.BorderLayout());
@@ -271,7 +285,7 @@ public class DlgCadCliente extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnAlterar)
-                .addGap(18, 18, 18)
+                .addGap(16, 16, 16)
                 .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(btnCancelar)
@@ -377,9 +391,16 @@ public class DlgCadCliente extends javax.swing.JDialog {
                 byte[] fotoBytes = FuncoesUteis.IconToBytes(foto);
                 int num = Integer.parseInt(txtNumero);
                 
-                int id = gerIG.getGerDominio().inserirCliente(nome, cpf, dt, sexo, cep, ender,  bairro, num, complemento, referencia, telFixo, celular, email, fotoBytes, cidade);
-                
-                JOptionPane.showMessageDialog(this, "Cliente " + id + "inserido com sucesso.", "Inserir Cliente", JOptionPane.INFORMATION_MESSAGE  );
+                if ( cliSelecionado == null) {
+                    // INSERIR
+                    int id = gerIG.getGerDominio().inserirCliente(nome, cpf, dt, sexo, cep, ender,  bairro, num, complemento, referencia, telFixo, celular, email, fotoBytes, cidade);
+                    JOptionPane.showMessageDialog(this, "Cliente " + id + "inserido com sucesso.", "Inserir Cliente", JOptionPane.INFORMATION_MESSAGE  );
+                } else {
+                    // ALTERAR
+                    gerIG.getGerDominio().alterarCliente(cliSelecionado, nome, cpf, dt, sexo, cep, ender,  bairro, num, complemento, referencia, telFixo, celular, email, fotoBytes, cidade);
+                    int id = cliSelecionado.getIdCliente();
+                    JOptionPane.showMessageDialog(this, "Cliente " + id + "alterado com sucesso.", "Inserir Cliente", JOptionPane.INFORMATION_MESSAGE  );                    
+                }
                 
             } catch (ParseException | ClassNotFoundException | SQLException  ex) {
                 JOptionPane.showMessageDialog(this, ex, "ERRO Cliente", JOptionPane.ERROR_MESSAGE  );
@@ -424,11 +445,22 @@ public class DlgCadCliente extends javax.swing.JDialog {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         gerIG.carregarComboCidades(cmbCidade);
+        habilitarBotoes();
     }//GEN-LAST:event_formComponentShown
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        gerIG.janelaPesqCliente();
+        cliSelecionado = gerIG.janelaPesqCliente();
+        try {
+            preencherCampos(cliSelecionado);
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, ex, "ERRO Cliente", JOptionPane.ERROR_MESSAGE  );
+        }
+        
     }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     
     private boolean validarCampos() {
@@ -500,6 +532,74 @@ public class DlgCadCliente extends javax.swing.JDialog {
         lblFoto.setText("");                
         lblFoto.setIcon(imagem);
     } 
+    
+  
+    private void preencherCampos(Cliente cli) throws ParseException {
+        if ( cli != null ) {
+            txtNome.setText( cli.getNome() );
+            txtCpf.setText( cli.getCpf());
+            txtData.setText( cli.getDtNascFormatada() );
+            txtCEP.setText( cli.getCep() );
+            txtEnder.setText( cli.getEndereco() );
+            txtNum.setText( String.valueOf( cli.getNum() ) );
+            txtComplemento.setText( cli.getComplemento() );
+            txtBairro.setText( cli.getBairro() );
+            txtRef.setText( cli.getReferencia() );
+            cmbCidade.setSelectedItem( cli.getCidade() );
+            txtTel.setText( cli.getTelFixo());
+            txtCelular.setText( cli.getCelular());
+            txtEmail.setText( cli.getEmail() );
+            
+            if ( cli.getSexo() == 'M' ) {
+                rdbMasc.setSelected(true);
+            } else {
+                rdbFemin.setSelected(true);
+            }            
+            
+            if ( cli.getFoto() != null ) { 
+                ImageIcon imagem = new ImageIcon( cli.getFoto() );
+                mostrarFoto(imagem);
+            } else {
+                lblFoto.setText("Foto");
+                lblFoto.setIcon(null);
+            }
+            habilitarBotoes();
+        }
+    }
+     
+    private void limparCampos() {           
+            txtNome.setText( "" );
+            txtCpf.setText( "" );
+            txtData.setText( "" );
+            txtCEP.setText("");
+            txtEnder.setText( "");
+            txtNum.setText( "" );
+            txtComplemento.setText( "" );
+            txtBairro.setText( "" );
+            txtRef.setText( "" );
+            cmbCidade.setSelectedIndex(0);
+            txtTel.setText( "" );
+            txtCelular.setText( "");
+            txtEmail.setText( "" );
+            lblFoto.setText("Foto");
+            lblFoto.setIcon(null);
+            cliSelecionado = null;
+            habilitarBotoes();
+    }
+    
+    
+    public void habilitarBotoes() {
+        if ( cliSelecionado == null ) {
+            btnNovo.setVisible(true);
+            btnAlterar.setVisible(false);
+        } else {
+            btnNovo.setVisible(false);
+            btnAlterar.setVisible(true);
+        }
+        
+        
+    }
+
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;

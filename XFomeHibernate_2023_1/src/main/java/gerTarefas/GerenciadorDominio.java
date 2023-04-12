@@ -13,6 +13,7 @@ import dominio.Cliente;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import javax.swing.Icon;
 
 /**
  *
@@ -42,6 +43,29 @@ public class GerenciadorDominio {
         int id = cliDao.inserir(cli);
         return id;
     }
+    
+   
+    public void alterarCliente(Cliente cli, String nome, String cpf, Date dtNasc, char sexo, String cep, String ender, String bairro, int num, String complemento, String referencia, String telFixo, String celular, String email, byte[] foto, Cidade cidade) throws ClassNotFoundException, SQLException   {
+
+            cli.setNome(nome);
+            cli.setCpf(cpf);
+            cli.setDtNasc(dtNasc);
+            cli.setSexo(sexo);
+            cli.setCep(cep);
+            cli.setEndereco(ender);
+            cli.setNum(num);
+            cli.setComplemento(complemento);
+            cli.setBairro(bairro);
+            cli.setReferencia(referencia);
+            cli.setTelFixo(telFixo);
+            cli.setCelular(celular);
+            cli.setEmail(email);
+            cli.setFoto( foto );
+            cli.setCidade(cidade);
+            
+            cliDao.alterar(cli);        
+    }
+    
     
     public List<Cliente> pesquisarCliente (String pesq, int tipo) throws ClassNotFoundException, SQLException {
         List<Cliente> lista = null;
